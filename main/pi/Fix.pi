@@ -14,27 +14,27 @@ data D (A : Type) : Type where
    V of (_ : A)
 
 unV : [A:Type] -> D A -> A
-unV = \[A] v.
-        case v of 
-          V y -> y
-          F f -> TRUSTME
+
+
+
+
 
 unF :[A:Type] -> D A -> D A -> D A
-unF = \[A] v x . 
-   case v of 
-     F f -> f x
-     V y -> TRUSTME
+
+
+
+
 
 -- Here's the Y-combinator. To make it type 
 -- check, we need to add the appropriate conversions 
 -- into and out of the D type.
 
 fix : [A:Type] -> (A -> A) -> A
-fix = \ [A] g.  
-   let omega = 
-      ( \x. V (g (unV [A] (unF [A] x x))) 
-      : D A -> D A) in
-      unV [A] (omega (F omega))
+
+
+
+
+
 
 -- Example use case
 
@@ -44,11 +44,11 @@ data Nat : Type where
    Succ of ( _ : Nat)
 
 fix_add : Nat -> Nat -> Nat
-fix_add = fix [Nat -> Nat -> Nat] 
-        \radd. \x. \y. 
-            case x of 
-              Zero   -> y
-              Succ n -> Succ (radd n y)
+
+
+
+
+
 
 test : fix_add 5 2 = 7
-test = Refl
+
